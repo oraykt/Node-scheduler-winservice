@@ -1,11 +1,11 @@
 import { Service } from 'node-windows';
 import { join } from 'path';
+import logger from './logger';
 
 const svcName = 'Node Job Runner Service';
 const svcDescription = 'A Windows Service to run jobs defined in a JSON configuration file.';
 const scriptPath = join(__dirname, 'worker.js');
 
-// Create the service
 const svc = new Service({
   name: svcName,
   description: svcDescription,
@@ -16,51 +16,48 @@ const svc = new Service({
   },
 });
 
-// Parse command-line arguments
 const action = process.argv[2];
 
-// Utility function to handle errors and exit
 function exitWithError(message: string): void {
+  logger.error(message);
   console.error(`Error: ${message}`);
   process.exit(1);
 }
 
-// Implement command handling
 switch (action) {
   case 'install':
-    // Check if the service is already installed
     svc.on('alreadyinstalled', () => {
       exitWithError(`Service "${svcName}" is already installed.`);
     });
 
-    // Listen for the install event
     svc.on('install', () => {
+      logger.info(`Service "${svcName}" installed successfully.`);
       console.log(`Service "${svcName}" installed successfully.`);
       svc.start();
     });
 
-    // Install the service
+    logger.info(`Installing service "${svcName}"...`);
     console.log(`Installing service "${svcName}"...`);
     svc.install();
     break;
 
   case 'uninstall':
-    // Check if the service is not installed
     svc.on('notinstalled', () => {
       exitWithError(`Service "${svcName}" is not installed.`);
     });
 
-    // Listen for the uninstall event
     svc.on('uninstall', () => {
+      logger.info(`Service "${svcName}" uninstalled successfully.`);
       console.log(`Service "${svcName}" uninstalled successfully.`);
     });
 
-    // Uninstall the service
+    logger.info(`Uninstalling service "${svcName}"...`);
     console.log(`Uninstalling service "${svcName}"...`);
     svc.uninstall();
     break;
 
   default:
+    logger.info('Invalid command. Usage: install or uninstall.');
     console.log(`
 Usage:
   node dist/service.js install     - Install the service
