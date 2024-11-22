@@ -1,0 +1,7 @@
+{
+  "job": "node app.js",
+  "arguments": [
+    "-title=demo"
+  ],
+  "error": false
+}
