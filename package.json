@@ -29,7 +29,8 @@
   },
   "homepage": "https://github.com/oraykt/Node-scheduler-winservice#readme",
   "dependencies": {
-    "node-windows": "^1.0.0-beta.8"
+    "node-windows": "^1.0.0-beta.8",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
