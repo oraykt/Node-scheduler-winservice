@@ -69,7 +69,15 @@ Edit the `config.json` file to define the job and arguments:
 Run the following command to install the service:
 
 ```bash
-node dist/service.js
+node dist/service.js install
+```
+
+#### Alternatively
+
+You can also run the following command to install the service:
+
+```bash
+npm run service-install
 ```
 
 ### Start the Service
@@ -78,10 +86,18 @@ The service will start automatically upon installation. You can also manage it v
 
 ### Uninstall the Service
 
-To uninstall the service, edit `service.ts` to call `svc.uninstall()` and re-run it:
+Run the following command to unnstall the service:
 
-```javascript
-svc.uninstall();
+```bash
+node dist/service.js uninstall
+```
+
+#### Alternatively
+
+You can also run the following command to install the service:
+
+```bash
+npm run service-uninstall
 ```
 
 ## Development
